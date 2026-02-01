@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>House Price Predictor</title>
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -23,7 +20,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333;
         }
 
         .card {
@@ -33,18 +29,18 @@
             padding: 28px;
             border-radius: 16px;
             position: relative;
+            overflow: visible;
             z-index: 1;
         }
 
         .card::before {
             content: "";
             position: absolute;
-            inset: -2px;
+            inset: -3px;
             border-radius: 18px;
             background: linear-gradient(135deg, #5280e2, #10b981);
             z-index: -1;
         }
-
 
         h2 {
             text-align: center;
@@ -57,24 +53,16 @@
             font-size: 14px;
             font-weight: 600;
             color: #374151;
-            display: block;
             margin-bottom: 6px;
+            display: block;
         }
 
-        input,
-        select {
+        input, select {
             width: 100%;
             padding: 10px 12px;
             border-radius: 8px;
             border: 1px solid #d1d5db;
             margin-bottom: 16px;
-            font-size: 14px;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #2563eb;
         }
 
         button {
@@ -84,19 +72,12 @@
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
         }
 
         .result {
-            margin-top: 22px;
+            margin-bottom: 16px;
             padding: 14px;
             background: #ecfdf5;
             border-left: 5px solid #10b981;
@@ -104,8 +85,18 @@
             font-weight: 600;
             color: #065f46;
             text-align: center;
-
             animation: slideFadeIn 0.45s ease-out;
+        }
+
+        @keyframes slideFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .footer {
@@ -114,112 +105,83 @@
             font-size: 12px;
             color: #6b7280;
         }
-
-        .sticky {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        @keyframes slideFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-12px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .result {
-            animation: slideFadeIn 0.45s ease-out;
-        }
     </style>
 </head>
 
 <body>
+<div class="card">
 
-    <div class="card">
-        {% if result %}
-        <div class="result">
-            {{ result }}
-        </div>
-        {% endif %}
+    {% if result %}
+    <div class="result">{{ result }}</div>
+    {% endif %}
 
-        <h2>🏠 House Price Predictor</h2>
+    <h2>🏠 House Price Predictor</h2>
 
-        <form method="POST">
-            <label>Area (sq ft)</label>
-            <input name="area" required>
+    <form method="POST">
+        <label>Area (sq ft)</label>
+        <input type="number" name="area" required>
 
-            <label>Bedrooms</label>
-            <input name="bedrooms" required>
+        <label>Bedrooms</label>
+        <input type="number" name="bedrooms" required>
 
-            <label>Bathrooms</label>
-            <input name="bathrooms" required>
+        <label>Bathrooms</label>
+        <input type="number" name="bathrooms" required>
 
-            <label>Stories</label>
-            <input name="stories" required>
+        <label>Stories</label>
+        <input type="number" name="stories" required>
 
-            <label>Parking</label>
-            <input name="parking" required>
+        <label>Parking</label>
+        <input type="number" name="parking" required>
 
-            <label>Main Road</label>
-            <select name="mainroad">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Main Road</label>
+        <select name="mainroad">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Guest Room</label>
-            <select name="guestroom">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Guest Room</label>
+        <select name="guestroom">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Basement</label>
-            <select name="basement">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Basement</label>
+        <select name="basement">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Hot Water</label>
-            <select name="hotwater">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Hot Water</label>
+        <select name="hotwater">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Air Conditioning</label>
-            <select name="aircon">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Air Conditioning</label>
+        <select name="aircon">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Preferred Area</label>
-            <select name="prefarea">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
+        <label>Preferred Area</label>
+        <select name="prefarea">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
 
-            <label>Furnishing</label>
-            <select name="furnishing">
-                <option value="furnished">Fully Furnished</option>
-                <option value="semi-furnished">Semi Furnished</option>
-                <option value="unfurnished">Unfurnished</option>
-            </select>
+        <label>Furnishing</label>
+        <select name="furnishing">
+            <option value="furnished">Fully Furnished</option>
+            <option value="semi-furnished">Semi Furnished</option>
+            <option value="unfurnished">Unfurnished</option>
+        </select>
 
-            <button type="submit">Predict Price</button>
-        </form>
+        <button type="submit">Predict Price</button>
+    </form>
 
-
-
-        <div class="footer">
-            Master-Class Project · Flask + ML · Developed by Yuvraj Dixit
-        </div>
+    <div class="footer">
+        Master-Class Project · Flask + ML · Developed by Yuvraj Dixit
     </div>
-
+</div>
 </body>
-
 </html>
